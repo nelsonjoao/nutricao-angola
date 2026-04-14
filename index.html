@@ -143,8 +143,14 @@
         <section class="py-5" id="scroll-target">
             <div class="container px-5 my-5">
                 <div class="row gx-5 align-items-center">
-                    <div class="col-lg-6 text-center"><img class="img-fluid rounded mb-5 mb-lg-0" style="height: 500px;"
-                            src="assets/images/file_000.png" alt="..." /></div>
+                    <div class="col-lg-6 text-center">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <video class="embed-responsive-item" autoplay loop muted>
+                                <source src="assets/video/1.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                    </div>
                     <div class="col-lg-6">
                         <h4 class="fw-bolder text-center">Oferta especial – somente hoje:</h4>
                         <h3 class="fw-bolder text-center pt-2 preco-antigo">70.000 AOA</h3>
@@ -252,21 +258,26 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         $(document).ready(function () {
 
             $("#contactForm").submit(function (event) {
                 event.preventDefault();
                 $.ajax({
-                    url: "https://fortunesociety.ao/mail_send/request_methods.php",
+                    url: "https://projetosangolasites.ao/mail_send/request_methods.php",
                     type: "POST",
                     data: $(this).serialize(),
                     success: function (data) {
                         var response = JSON.parse(data);
-                        console.log(data);
-                        /*if (response.message == 'success') {
-                            $('#modal-success').modal('show');
-                        }*/
+                        //console.log(response);
+                        if (response.message == 'success') {
+                            alert("Cadastro realizado com sucesso!");
+                            $("#contactForm")[0].reset();
+                        } else {
+                            alert("Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.");
+                        }
                     }
                 });
             });
